@@ -1,0 +1,36 @@
+nav>ul>li>button{
+    margin: 0.5rem 2rem;
+}
+
+.imageOfTheQuranSectionClass{
+    text-align: center;
+}
+
+.imageOfTheQuranClass{
+    width: 14%;
+    border-radius: 100%;
+    margin: 1rem auto;
+}
+
+.h1TextOfTheHolyAlQuranClass{
+    margin: 1rem;
+}
+
+.searchBoxSectionClass{
+    text-align: center;
+    margin: 4rem 6rem;
+}
+
+.searchBoxDivClass{
+    width: 100%;
+}
+
+.chapterNameSectionClass{
+    margin: 4rem;
+}
+
+.surahGalleryClass{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 1rem;
+}
