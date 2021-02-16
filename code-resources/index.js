@@ -58,9 +58,9 @@ function loadInitialContent () {
     });
 }
 async function loadAllSurahs () {
-    theEntireQuranWithArabicTextAndAudio = await callFromApi('http://api.alquran.cloud/v1/quran/ar.alafasy');
+    theEntireQuranWithArabicTextAndAudio = await callFromApi('HTTPS://api.alquran.cloud/v1/quran/ar.alafasy');
     loadInitialContent();
-    theEntireQuranWithEnglishTranslation = await callFromApi('http://api.alquran.cloud/v1/quran/en.asad');
+    theEntireQuranWithEnglishTranslation = await callFromApi('HTTPS://api.alquran.cloud/v1/quran/en.asad');
     dataIsLoaded();
 }
 loadAllSurahs();
