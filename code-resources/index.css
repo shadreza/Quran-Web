@@ -33,4 +33,28 @@ nav>ul>li>button{
     display: grid;
     grid-template-columns: auto auto auto;
     grid-gap: 1rem;
+    padding: 2rem 0;
+}
+
+.surahGalleryClass>div{
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 1.5rem;
+}
+
+.surahGalleryClass>div>small{
+    display: block;
+    margin-top: 1rem;
+}
+
+.surahGalleryClass>div>.nameOfTheSurah{
+    margin: 0 0 0.85rem 0;
+}
+
+.surahGalleryClass>div>.nameOfTheSurah>.arabicNameOfTheSurah{
+    font-size: 2rem;
+}
+
+.surahLoaderSectionClass{
+    display: none;
 }
