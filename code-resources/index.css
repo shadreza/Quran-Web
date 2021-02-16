@@ -58,3 +58,9 @@ nav>ul>li>button{
 .surahLoaderSectionClass{
     display: none;
 }
+
+.loadingSpinnerClass{
+    position: fixed;
+    top: 65%;
+    left: 49%;
+}

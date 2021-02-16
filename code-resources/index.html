@@ -27,6 +27,11 @@
 
     <main>
 
+        <!-- loading spinner -->
+        <div class="spinner-grow text-primary loadingSpinnerClass" id="loadingSpinnerId" role="status">
+            <span class="sr-only"></span>
+        </div>
+
         <!-- top image of the quran -->
         <section id="imageOfTheQuranSectionId" class="imageOfTheQuranSectionClass">
             <img src="../image-resources/quran-caliography-text-pic.jpg" alt="..." id="imageOfTheQuranId" class="imageOfTheQuranClass">
@@ -36,16 +41,18 @@
             <h6>Bismillahir Rahmanir Rahim</h6>
         </section>
 
-        <!-- search box -->
-        <section id="searchBoxSectionId" class="searchBoxSectionClass">
-            <div class="input-group mb-3 searchBoxDivClass" id="searchBoxDivId">
-                <input type="text" class="form-control searchBoxClass" placeholder="Search Surah" aria-label="Recipient's username" aria-describedby="button-addon2">
-                <button class="btn btn-outline-primary" type="button" id="button-addon2">Search</button>
-            </div>
-        </section>
-
         <!-- chapters section by chapter name or surah -->
         <section class="chapterNameSectionClass container" id="chapterNameSectionId">
+
+            <!-- search box -->
+            <section id="searchBoxSectionId" class="searchBoxSectionClass">
+                <div class="input-group mb-3 searchBoxDivClass" id="searchBoxDivId">
+                    <input type="text" class="form-control searchBoxClass" placeholder="Search Surah" aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <button class="btn btn-outline-primary" type="button" id="button-addon2">Search</button>
+                </div>
+            </section>
+
+            <!-- surah tab -->
             <section class="chapterNameSectionHeadersClass" id="chapterNameSectionHeadersId">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
@@ -53,14 +60,17 @@
                     </li>
                 </ul>
             </section>
+
+            <!-- surah Gallery section -->
             <section class="surahGalleryClass" id="surahGalleryId">
                 
             </section>
-        </section>
 
-        <!-- surah loader section -->
-        <section class="surahLoaderSectionClass" id="surahLoaderSectionId">
+            <!-- surah loader section -->
+            <section class="surahLoaderSectionClass" id="surahLoaderSectionId">
             
+            </section>
+
         </section>
         
     </main>

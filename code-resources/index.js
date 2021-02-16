@@ -1,9 +1,13 @@
 let t0 = performance.now();
 const surahGallery = document.getElementById('surahGalleryId');
 const surahLoader = document.getElementById('surahLoaderSectionId');
+const surahShowingSection = document.getElementById('chapterNameSectionId');
+const loadingSpinner = document.getElementById('loadingSpinnerId');
 let theEntireQuranWithArabicTextAndAudio ;
 let theEntireQuranWithEnglishTranslation ;
 let theEntireQuranWithAudio ;
+surahShowingSection.style.display='none';
+loadingSpinner.style.display='block';
 async function callFromApi (passedUrl) {
     const response = await fetch(passedUrl);
     const jsonResponse = await response.json();
@@ -17,7 +21,9 @@ async function dataIsLoaded () {
 }
 function loadInitialContent () {
     surahGallery.innerHTML='';
-    theEntireQuranWithArabicTextAndAudio.forEach(surahContent => {
+    for (let i = 0; i < theEntireQuranWithArabicTextAndAudio.length; i++) {
+        let surahContent = theEntireQuranWithArabicTextAndAudio[i];
+        let surahTranslatedContent = theEntireQuranWithEnglishTranslation[i];
         let individualSurahDiv = document.createElement('div');
         individualSurahDiv.innerHTML = `
             <strong>${surahContent.number}</strong>
@@ -37,30 +43,43 @@ function loadInitialContent () {
             let surahToShowHederDiv = document.createElement('div');
             surahToShowHederDiv.innerHTML=`
                 <h3>${surahContent.name}</h3>
-                <h4>${surahContent.englishName}</h4>
+                <h4><small>surah   </small>${surahContent.englishName}</h4>
             `;
             surahToShowHederDiv.style.textAlign='center';
             surahToShowHederDiv.style.marginBottom='4rem';
             surahLoader.appendChild(surahToShowHederDiv);
-            surahContent.ayahs.forEach(ayah => {
+            for (let i = 0; i < surahContent.ayahs.length; i++) {
+                const ayah = surahContent.ayahs[i];
+                const ayahTranslation = surahTranslatedContent.ayahs[i];
                 let currentAyahDiv = document.createElement('div');
                 currentAyahDiv.innerHTML=`
-                    <h3>${ayah.text}</h3>
+                    <hr>
+                    <h2>${ayah.text}</h2>
+                    <br>
+                    <h6>${ayahTranslation.text}</h6>
+                    <br>
+                    <br>
+                    <audio controls>
+                        <source src="${ayah.audio}">
+                    </audio>
+                    <hr>
                 `;
                 currentAyahDiv.style.textAlign='right';
-                currentAyahDiv.style.margin='2rem 0';
+                currentAyahDiv.style.margin='3rem 0';
                 surahToShowAyahsDiv.appendChild(currentAyahDiv);
-            });
-            surahLoader.appendChild(surahToShowAyahsDiv);
+            }
             surahLoader.style.padding='5rem'
             surahLoader.style.display='block';
+            surahLoader.appendChild(surahToShowAyahsDiv);
         })
-    });
+    }
 }
 async function loadAllSurahs () {
     theEntireQuranWithArabicTextAndAudio = await callFromApi('HTTPS://api.alquran.cloud/v1/quran/ar.alafasy');
-    loadInitialContent();
     theEntireQuranWithEnglishTranslation = await callFromApi('HTTPS://api.alquran.cloud/v1/quran/en.asad');
+    surahShowingSection.style.display='block';
+    loadingSpinner.style.display='none';
+    loadInitialContent();
     dataIsLoaded();
 }
 loadAllSurahs();
