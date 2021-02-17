@@ -13,7 +13,7 @@
 
     <nav>
         <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
+            <li class="nav-item" role="presentation" id="homeButtonId">
               <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Home</button>
             </li>
             <li class="nav-item" role="presentation">
@@ -55,8 +55,11 @@
             <!-- surah tab -->
             <section class="chapterNameSectionHeadersClass" id="chapterNameSectionHeadersId">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                      <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Surah</button>
+                    <li class="nav-item" role="presentation" id="allSurahButtonId">
+                      <button id="allSurahTabId" class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">All Surah</button>
+                    </li>
+                    <li class="nav-item" role="presentation" id="currentSurahButtonId">
+                        <button id="currentSurahTabId" class="nav-link" id="current-tab" data-bs-toggle="tab" data-bs-target="#current" type="button" role="tab" aria-controls="current" aria-selected="true">Current Surah</button>
                     </li>
                 </ul>
             </section>

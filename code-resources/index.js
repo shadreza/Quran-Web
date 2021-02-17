@@ -1,4 +1,3 @@
-let t0 = performance.now();
 const surahGallery = document.getElementById('surahGalleryId');
 const surahLoader = document.getElementById('surahLoaderSectionId');
 const surahShowingSection = document.getElementById('chapterNameSectionId');
@@ -12,12 +11,6 @@ async function callFromApi (passedUrl) {
     const response = await fetch(passedUrl);
     const jsonResponse = await response.json();
     return jsonResponse.data.surahs;
-}
-async function dataIsLoaded () {
-    console.log(theEntireQuranWithArabicTextAndAudio);
-    console.log(theEntireQuranWithEnglishTranslation);
-    let t1 = performance.now();
-    console.log((t1-t0)/1000 + 'sec');
 }
 function loadInitialContent () {
     surahGallery.innerHTML='';
@@ -35,8 +28,15 @@ function loadInitialContent () {
             <h6>${surahContent.englishNameTranslation}</h6>
             <h6>${surahContent.revelationType}</h6>
         `;
+        document.getElementById('currentSurahButtonId').style.display='none';
         surahGallery.appendChild(individualSurahDiv);
         individualSurahDiv.addEventListener('click', () => {
+            const currentSurahTab = document.getElementById('currentSurahTabId');
+            const allSurahTab = document.getElementById('allSurahTabId');
+            document.getElementById('currentSurahButtonId').style.display='block';
+            allSurahTab.classList.remove('active');
+            currentSurahTab.textContent = surahContent.englishName;
+            currentSurahTab.classList.add('active');
             surahGallery.style.display='none';
             surahLoader.innerHTML='';
             let surahToShowAyahsDiv = document.createElement('div');
@@ -54,6 +54,9 @@ function loadInitialContent () {
                 let currentAyahDiv = document.createElement('div');
                 currentAyahDiv.innerHTML=`
                     <hr>
+                    <strong>${i+1}</strong>
+                    <br>
+                    <br>
                     <h2>${ayah.text}</h2>
                     <br>
                     <h6>${ayahTranslation.text}</h6>
@@ -68,9 +71,10 @@ function loadInitialContent () {
                 currentAyahDiv.style.margin='3rem 0';
                 surahToShowAyahsDiv.appendChild(currentAyahDiv);
             }
+            surahLoader.appendChild(surahToShowAyahsDiv);
             surahLoader.style.padding='5rem'
             surahLoader.style.display='block';
-            surahLoader.appendChild(surahToShowAyahsDiv);
+            currentSurahTab.scrollIntoView();
         })
     }
 }
@@ -88,6 +92,18 @@ async function loadAllSurahs () {
     surahShowingSection.style.display='block';
     loadingSpinner.style.display='none';
     loadInitialContent();
-    dataIsLoaded();
 }
 loadAllSurahs();
+const reloadingAllSurahs = () => {
+    surahLoader.innerHTML='';
+    surahLoader.style.display='none';
+    surahGallery.style.display='grid';
+    surahShowingSection.style.display='block';
+    loadInitialContent();
+}
+document.getElementById('homeButtonId').onclick = () => {
+    reloadingAllSurahs();
+}
+document.getElementById('allSurahButtonId').onclick = () => {
+    reloadingAllSurahs();
+}
