@@ -75,8 +75,16 @@ function loadInitialContent () {
     }
 }
 async function loadAllSurahs () {
-    theEntireQuranWithArabicTextAndAudio = await callFromApi('HTTPS://api.alquran.cloud/v1/quran/ar.alafasy');
-    theEntireQuranWithEnglishTranslation = await callFromApi('HTTPS://api.alquran.cloud/v1/quran/en.asad');
+    if(localStorage.getItem('quranWithArabicTextAndAudio')==null || localStorage.getItem('quranWithEnglishTranslation')==null){
+        theEntireQuranWithArabicTextAndAudio = await callFromApi('HTTPS://api.alquran.cloud/v1/quran/ar.alafasy');
+        theEntireQuranWithEnglishTranslation = await callFromApi('HTTPS://api.alquran.cloud/v1/quran/en.asad');
+        localStorage.setItem('quranWithArabicTextAndAudio',JSON.stringify(theEntireQuranWithArabicTextAndAudio));
+        localStorage.setItem('quranWithEnglishTranslation',JSON.stringify(theEntireQuranWithEnglishTranslation));
+    }
+    else{
+        theEntireQuranWithArabicTextAndAudio = JSON.parse(localStorage.getItem('quranWithArabicTextAndAudio'));
+        theEntireQuranWithEnglishTranslation = JSON.parse(localStorage.getItem('quranWithEnglishTranslation'));
+    }
     surahShowingSection.style.display='block';
     loadingSpinner.style.display='none';
     loadInitialContent();
