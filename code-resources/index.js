@@ -7,10 +7,21 @@ let theEntireQuranWithEnglishTranslation ;
 let theEntireQuranWithAudio ;
 surahShowingSection.style.display='none';
 loadingSpinner.style.display='block';
-async function callFromApi (passedUrl) {
+async function callFromApi (passedUrl , decisionMaker = 1) {
     const response = await fetch(passedUrl);
     const jsonResponse = await response.json();
-    return jsonResponse.data.surahs;
+    if(decisionMaker === 1){
+        return jsonResponse.data.surahs;
+    }
+    else if(decisionMaker === 2){
+        if(response.status!==200){
+            return -1;
+        }
+        return jsonResponse.data;
+    }
+    else{
+        console.log('The Decision Maker Is Not Right...');
+    }
 }
 function loadInitialContent () {
     surahGallery.innerHTML='';
@@ -80,8 +91,8 @@ function loadInitialContent () {
 }
 async function loadAllSurahs () {
     if(localStorage.getItem('quranWithArabicTextAndAudio')==null || localStorage.getItem('quranWithEnglishTranslation')==null){
-        theEntireQuranWithArabicTextAndAudio = await callFromApi('HTTPS://api.alquran.cloud/v1/quran/ar.alafasy');
-        theEntireQuranWithEnglishTranslation = await callFromApi('HTTPS://api.alquran.cloud/v1/quran/en.asad');
+        theEntireQuranWithArabicTextAndAudio = await callFromApi('HTTPS://api.alquran.cloud/v1/quran/ar.alafasy' , 1);
+        theEntireQuranWithEnglishTranslation = await callFromApi('HTTPS://api.alquran.cloud/v1/quran/en.yusufali' , 1);
         localStorage.setItem('quranWithArabicTextAndAudio',JSON.stringify(theEntireQuranWithArabicTextAndAudio));
         localStorage.setItem('quranWithEnglishTranslation',JSON.stringify(theEntireQuranWithEnglishTranslation));
     }
@@ -107,3 +118,14 @@ document.getElementById('homeButtonId').onclick = () => {
 document.getElementById('allSurahButtonId').onclick = () => {
     reloadingAllSurahs();
 }
+
+document.getElementById('searchBoxId').addEventListener('keyup', async ()=>{
+    const textWithinTheSearchBox = document.getElementById('searchBoxId').value;
+    const jsonResponseForSearchedItem = await callFromApi(`http://api.alquran.cloud/v1/search/${textWithinTheSearchBox}/all/en.yusufali` ,2);
+    if(jsonResponseForSearchedItem===-1){
+        console.log("not 200");
+    }
+    else{
+        console.log(jsonResponseForSearchedItem);
+    }
+})
